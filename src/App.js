@@ -1,6 +1,8 @@
 import React, { Component, Fragment } from 'react';
-import logo from './logo.svg';
 import './App.css';
+
+import Title from './Components/Title/Title';
+import Form from './Components/Form/Form';
 
 class App extends Component {
 
@@ -32,16 +34,9 @@ class App extends Component {
   render() {  
     return (
       <Fragment>
+        <Title>Controle Financeiro</Title>
         <h1>Cadastro de despesa</h1>
-        <form>
-          <label for="categoria">Categoria:</label>
-          <input type="text" id="category" name="category" value="Supermercado"/>
-          <label for="data">Data:</label>
-          <input type="date" id="date" name="date"/>
-          <label for="valor">Categoria:</label>
-          <input type="number" id="valor" name="valor" value="100.00"/>
-          <button type="submit">Enviar</button>
-        </form>
+        <Form/>
         <hr></hr>
         <h1>Tabela</h1>
         <table>
