@@ -25,6 +25,11 @@ class Form extends Component {
         });
     }
 
+    submitForm = event => {
+        event.preventDefault();
+        this.props.handleSubmit(this.state);
+    }
+
     render() {
         return(
             <Fragment>
@@ -34,7 +39,7 @@ class Form extends Component {
                 <Input type="date" name="data" value={this.state.data} onChange={this.handleInput}/>
                 <Label>Valor</Label>
                 <Input type="number" name="valor" value={this.state.valor} onChange={this.handleInput}/>
-                <Button variant="solid" backgroundColor="primary" size="1">Enviar</Button>
+                <Button variant="solid" backgroundColor="primary" size="1" onClick={this.submitForm}>Cadastrar</Button>
             </Fragment>
         );
     }

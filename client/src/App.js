@@ -28,17 +28,28 @@ class App extends Component {
         }
       ],
       titulo: ['Categoria', 'Data', 'Valor'],
-    }
+    };
+  };
+
+  handleSubmit = (dados) => {
+    const elemento = {
+      categoria: dados.categoria,
+      data: dados.data,
+      valor: dados.valor
+    };
+    this.setState({
+      elementos: [...this.state.elementos, elemento]
+    });
+
   }
 
   render() {  
     return (
       <Fragment>
         <Title>Controle Financeiro</Title>
-        <h1>Cadastro de despesa</h1>
-        <Form/>
+        <Form handleSubmit={this.handleSubmit}/>
         <hr></hr>
-        <h1>Tabela</h1>
+        <Title>Tabela</Title>
         <table>
           <thead>
             <tr>
