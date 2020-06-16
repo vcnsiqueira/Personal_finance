@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from 'react';
+import React, { Component } from 'react';
 
 import Input from '../Input/Input';
 import Label from '../Label/Label';
@@ -32,15 +32,15 @@ class Form extends Component {
 
     render() {
         return(
-            <Fragment>
+            <form onSubmit={this.submitForm}>
                 <Label>Categoria</Label>
                 <Input type="text" name="categoria" value={this.state.categoria} onChange={this.handleInput}/>
                 <Label>Data</Label>
                 <Input type="date" name="data" value={this.state.data} onChange={this.handleInput}/>
                 <Label>Valor</Label>
                 <Input type="number" name="valor" value={this.state.valor} onChange={this.handleInput}/>
-                <Button variant="solid" backgroundColor="primary" size="1" onClick={this.submitForm}>Cadastrar</Button>
-            </Fragment>
+                <Button variant="solid" backgroundColor="primary" size="1" type="submit">Cadastrar</Button>
+            </form>
         );
     }
 

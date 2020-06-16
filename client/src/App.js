@@ -3,6 +3,7 @@ import './App.css';
 
 import Title from './Components/Title/Title';
 import Form from './Components/Form/Form';
+import Table from './Components/Table/Table';
 
 class App extends Component {
 
@@ -10,7 +11,7 @@ class App extends Component {
     super(props);
 
     this.state = {
-      elementos: [
+      list: [
         {
           categoria: 'Supermercado',
           data: '2020-06-05',
@@ -27,55 +28,43 @@ class App extends Component {
           valor: '45.00'
         }
       ],
-      titulo: ['Categoria', 'Data', 'Valor'],
+      searchTerm: ''
     };
+
+    this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleSearch = this.handleSearch.bind(this);
   };
 
-  handleSubmit = (dados) => {
-    const elemento = {
-      categoria: dados.categoria,
-      data: dados.data,
-      valor: dados.valor
+  handleSubmit = (data) => {
+    const newElement = {
+      categoria: data.categoria,
+      data: data.data,
+      valor: data.valor
     };
     this.setState({
-      elementos: [...this.state.elementos, elemento]
+      list: [...this.state.list, newElement]
     });
 
   }
 
-  render() {  
+  handleSearch = (event) => {
+    this.setState({
+      searchTerm: event.target.value,
+    });
+  };
+
+  render() { 
+
+    const { list, searchTerm } = this.state
+
     return (
       <Fragment>
         <Title>Controle Financeiro</Title>
         <Form handleSubmit={this.handleSubmit}/>
         <hr></hr>
         <Title>Tabela</Title>
-        <table>
-          <thead>
-            <tr>
-              {
-                this.state.titulo.map(item => {
-                  return(
-                    <th>{item}</th>
-                  );
-                })
-              }
-            </tr>
-          </thead>
-          <tbody>
-            {
-              this.state.elementos.map(elemento => {
-                return(
-                  <tr>
-                    <td>{elemento.categoria}</td>
-                    <td>{elemento.data}</td>
-                    <td>{elemento.valor}</td>
-                  </tr>
-                );
-              })
-            }
-          </tbody>
-        </table>      
+        <input type="text" value={searchTerm} onChange={this.handleSearch}/>
+        <Table list = {list} searchTerm={searchTerm}/>
       </Fragment>
     );
   }
