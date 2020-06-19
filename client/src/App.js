@@ -1,11 +1,12 @@
 import React, { Component, Fragment } from 'react';
 import './App.css';
-import PropTypes from 'prop-types';
 
 import Title from './Components/Title/Title';
 import Form from './Components/Form/Form';
 import Table from './Components/Table/Table';
 import Search from './Components/Search/Search';
+import RegisterModal from './Components/Modal/RegisterModal/RegisterModal';
+import Button from './Components/Button/Button';
 
 class App extends Component {
 
@@ -30,7 +31,8 @@ class App extends Component {
           valor: '45.00'
         }
       ],
-      searchTerm: ''
+      searchTerm: '',
+      showRegisterModal: false,
     };
 
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -49,20 +51,34 @@ class App extends Component {
 
   }
 
-  handleSearch = (event) => {
+  handleSearch = event => {
     this.setState({
       searchTerm: event.target.value,
     });
   };
 
+  showRegisterModal = event => {
+    this.setState({
+      showRegisterModal: true,
+    })
+  }
+
+  closeRegisterModal = event => {
+    this.setState({
+      showRegisterModal: false,
+    });
+  } 
+
   render() { 
 
-    const { list, searchTerm } = this.state
+    const { list, searchTerm, showRegisterModal } = this.state
 
     return (
       <Fragment>
         <Title>Controle Financeiro</Title>
         <Form handleSubmit={this.handleSubmit}/>
+        <RegisterModal show={showRegisterModal} handleClose={this.closeRegisterModal}>Mensagem do Modal</RegisterModal>
+        <Button onClick={this.showRegisterModal}>Abrir Modal</Button>
         <hr></hr>
         <Title>Tabela</Title>
         <Search type="text" value={searchTerm} onChange={this.handleSearch}/>

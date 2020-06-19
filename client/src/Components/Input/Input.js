@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import PropTypes from 'prop-types';
 
 const Input = styled.input`
     padding: 0.5em;
@@ -14,5 +15,10 @@ const Input = styled.input`
         opacity: 1; /* Firefox */
 }
 `;
+
+Input.propTypes = {
+    value: PropTypes.string,
+    onChange: PropTypes.func,
+}
 
 export default Input

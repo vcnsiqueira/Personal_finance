@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
 import Input from '../Input/Input';
 import Label from '../Label/Label';
@@ -17,7 +18,7 @@ class Form extends Component {
         };
 
         this.handleInput = this.handleInput.bind(this);
-        this.submitForm = this.submitFrom.bind(this);
+        this.submitForm = this.submitForm.bind(this);
 
     }
 
@@ -47,7 +48,12 @@ class Form extends Component {
         );
     }
 
+}
 
+Form.propTypes = {
+    categoria: PropTypes.string,
+    data: PropTypes.string,
+    valor: PropTypes.string,
 }
 
 export default Form;

@@ -1,5 +1,5 @@
 import React from 'react';
-//import PropTypes from 'propt-types';
+import PropTypes from 'prop-types';
 
 const removeAccent = word => word.normalize('NFD').replace(/[\u0300-\u036f]/g, "");
 
@@ -48,5 +48,11 @@ class Table extends React.Component {
         )
     };
 };
+
+Table.propTypes = {
+    header: PropTypes.array,
+    list: PropTypes.array,
+    searchTerm: PropTypes.string,
+}
 
 export default Table;
