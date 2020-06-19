@@ -9,6 +9,10 @@ const Input = styled.input`
     font-weight: 400;
     background-color: #FFF;
     width: 300px;
+    ::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+        color: #DDDDDD;
+        opacity: 1; /* Firefox */
+}
 `;
 
 export default Input

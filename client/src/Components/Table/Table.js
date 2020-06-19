@@ -1,6 +1,8 @@
 import React from 'react';
 //import PropTypes from 'propt-types';
 
+const removeAccent = word => word.normalize('NFD').replace(/[\u0300-\u036f]/g, "");
+
 class Table extends React.Component {
 
     constructor(props) {
@@ -31,7 +33,7 @@ class Table extends React.Component {
                 </thead>
                 <tbody>
                     {
-                        list.filter(item => item.categoria.toLowerCase().includes(searchTerm.toLowerCase())).map(item => {
+                        list.filter(item => removeAccent(item.categoria).toLowerCase().includes(removeAccent(searchTerm).toLowerCase())).map(item => {
                             return(
                             <tr>
                                 <td>{item.categoria}</td>

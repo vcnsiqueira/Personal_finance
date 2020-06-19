@@ -1,9 +1,11 @@
 import React, { Component, Fragment } from 'react';
 import './App.css';
+import PropTypes from 'prop-types';
 
 import Title from './Components/Title/Title';
 import Form from './Components/Form/Form';
 import Table from './Components/Table/Table';
+import Search from './Components/Search/Search';
 
 class App extends Component {
 
@@ -35,11 +37,11 @@ class App extends Component {
     this.handleSearch = this.handleSearch.bind(this);
   };
 
-  handleSubmit = (data) => {
+  handleSubmit = (dados) => {
     const newElement = {
-      categoria: data.categoria,
-      data: data.data,
-      valor: data.valor
+      categoria: dados.categoria,
+      data: dados.data,
+      valor: parseFloat(dados.valor).toFixed(2),
     };
     this.setState({
       list: [...this.state.list, newElement]
@@ -63,7 +65,7 @@ class App extends Component {
         <Form handleSubmit={this.handleSubmit}/>
         <hr></hr>
         <Title>Tabela</Title>
-        <input type="text" value={searchTerm} onChange={this.handleSearch}/>
+        <Search type="text" value={searchTerm} onChange={this.handleSearch}/>
         <Table list = {list} searchTerm={searchTerm}/>
       </Fragment>
     );

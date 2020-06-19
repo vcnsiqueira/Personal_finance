@@ -16,12 +16,15 @@ class Form extends Component {
             valor: ''
         };
 
+        this.handleInput = this.handleInput.bind(this);
+        this.submitForm = this.submitFrom.bind(this);
+
     }
 
     handleInput = event => {
-        const { name, value } = event.target; 
+        let { name, value } = event.target;
         this.setState({
-            [name] : value
+            [name]: value,
         });
     }
 
