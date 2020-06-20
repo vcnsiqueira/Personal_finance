@@ -57,16 +57,10 @@ class App extends Component {
     });
   };
 
-  showRegisterModal = event => {
+  toggleRegisterModal = event => {
     this.setState({
-      showRegisterModal: true,
+      showRegisterModal: !this.state.showRegisterModal,
     })
-  }
-
-  closeRegisterModal = event => {
-    this.setState({
-      showRegisterModal: false,
-    });
   } 
 
   render() { 
@@ -77,8 +71,8 @@ class App extends Component {
       <Fragment>
         <Title>Controle Financeiro</Title>
         <Form handleSubmit={this.handleSubmit}/>
-        <RegisterModal show={showRegisterModal} handleClose={this.closeRegisterModal}>Mensagem do Modal</RegisterModal>
-        <Button onClick={this.showRegisterModal}>Abrir Modal</Button>
+        <RegisterModal show={showRegisterModal} handleClose={this.toggleRegisterModal}>Novo Cadastro</RegisterModal>
+        <Button variant="solid" backgroundColor="primary" size="1" onClick={this.toggleRegisterModal}>Novo Cadastro</Button>
         <hr></hr>
         <Title>Tabela</Title>
         <Search type="text" value={searchTerm} onChange={this.handleSearch}/>
