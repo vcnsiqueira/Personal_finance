@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import Input from '../Input/Input';
 import Label from '../Label/Label';
 import Button from '../Button/Button';
+import Select from '../Select/Select';
 
 class Form extends Component {
 
@@ -14,7 +15,8 @@ class Form extends Component {
         this.state = {
             categoria: '',
             data: '',
-            valor: ''
+            valor: '',
+            comentario: '',
         };
 
         this.handleInput = this.handleInput.bind(this);
@@ -35,14 +37,32 @@ class Form extends Component {
     }
 
     render() {
+
+        const { categoria, data, valor, comentario } = this.state;
+        const selectOptions = [ 'Receita', 'Despesa' ];
+
         return(
             <form onSubmit={this.submitForm}>
-                <Label>Categoria</Label>
-                <Input type="text" name="categoria" value={this.state.categoria} onChange={this.handleInput}/>
-                <Label>Data</Label>
-                <Input type="date" name="data" value={this.state.data} onChange={this.handleInput}/>
-                <Label>Valor</Label>
-                <Input type="number" name="valor" value={this.state.valor} onChange={this.handleInput}/>
+                <div>
+                    <Label>Cadastro:</Label>
+                    <Select name="cadastro" options={selectOptions}/>
+                </div>
+                <div>
+                    <Label>Categoria:</Label>
+                    <Input type="text" name="categoria" value={categoria} onChange={this.handleInput}/>
+                </div>
+                <div>
+                    <Label>Data:</Label>
+                    <Input type="date" name="data" value={data} onChange={this.handleInput}/>
+                </div>
+                <div>
+                    <Label>Valor:</Label>
+                    <Input type="number" name="valor" value={valor} onChange={this.handleInput}/>
+                </div>
+                <div>
+                    <Label>Comentário:</Label>
+                    <Input type="text" name="comentario" value={comentario} onChange={this.handleInput}/>
+                </div>
                 <Button variant="solid" backgroundColor="primary" size="1" type="submit">Cadastrar</Button>
             </form>
         );

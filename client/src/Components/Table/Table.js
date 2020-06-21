@@ -9,7 +9,7 @@ class Table extends React.Component {
         super(props);
 
         this.state = {
-            header: ['Categoria', 'Data', 'valor'],
+            header: ['Tipo', 'Categoria', 'Data', 'Valor', 'Comentário'],
         };
     };
 
@@ -36,9 +36,11 @@ class Table extends React.Component {
                         list.filter(item => removeAccent(item.categoria).toLowerCase().includes(removeAccent(searchTerm).toLowerCase())).map(item => {
                             return(
                             <tr>
+                                <td>{item.tipo}</td>
                                 <td>{item.categoria}</td>
                                 <td>{item.data}</td>
                                 <td>{item.valor}</td>
+                                <td>{item.comentario}</td>
                             </tr>
                             );
                         })

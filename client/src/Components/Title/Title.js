@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 const Title = styled.h1`
     text-align: center;
-    color: #3949AB;
+    color: #4711B2;
     font-size: 3rem;
 `
 

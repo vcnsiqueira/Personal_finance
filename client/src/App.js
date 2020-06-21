@@ -2,7 +2,6 @@ import React, { Component, Fragment } from 'react';
 import './App.css';
 
 import Title from './Components/Title/Title';
-import Form from './Components/Form/Form';
 import Table from './Components/Table/Table';
 import Search from './Components/Search/Search';
 import RegisterModal from './Components/Modal/RegisterModal/RegisterModal';
@@ -16,19 +15,25 @@ class App extends Component {
     this.state = {
       list: [
         {
+          tipo: 'Despesa',
           categoria: 'Supermercado',
           data: '2020-06-05',
-          valor: '100.00'
+          valor: '100.00',
+          comentario: '',
         },
         {
+          tipo: 'Despesa',
           categoria: 'Alimentação',
           data: '2020-06-05',
-          valor: '20.00'
+          valor: '20.00',
+          comentario: '',
         },
         {
+          tipo: 'Despesa',
           categoria: 'Farmácia',
           data: '2020-06-06',
-          valor: '45.00'
+          valor: '45.00',
+          comentario: 'Teste',
         }
       ],
       searchTerm: '',
@@ -41,9 +46,11 @@ class App extends Component {
 
   handleSubmit = (dados) => {
     const newElement = {
+      tipo: dados.tipo,
       categoria: dados.categoria,
       data: dados.data,
       valor: parseFloat(dados.valor).toFixed(2),
+      comentario: dados.comentario
     };
     this.setState({
       list: [...this.state.list, newElement]
@@ -70,11 +77,8 @@ class App extends Component {
     return (
       <Fragment>
         <Title>Controle Financeiro</Title>
-        <Form handleSubmit={this.handleSubmit}/>
-        <RegisterModal show={showRegisterModal} handleClose={this.toggleRegisterModal}>Novo Cadastro</RegisterModal>
-        <Button variant="solid" backgroundColor="primary" size="1" onClick={this.toggleRegisterModal}>Novo Cadastro</Button>
-        <hr></hr>
-        <Title>Tabela</Title>
+        <Button variant="solid" backgroundColor="#4711B2" onClick={this.toggleRegisterModal}>Novo Cadastro</Button>
+        <RegisterModal show={showRegisterModal} handleClose={this.toggleRegisterModal} handleSubmit={this.handleSubmit}>Novo Cadastro</RegisterModal>
         <Search type="text" value={searchTerm} onChange={this.handleSearch}/>
         <Table list = {list} searchTerm={searchTerm}/>
       </Fragment>

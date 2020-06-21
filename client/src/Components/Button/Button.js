@@ -79,16 +79,16 @@ color: ${props => {
     }
 }};
 font-size: ${props => props.fontSize === 'xlarge' ? '2.5rem' : props.fontSize === 'large' ? '1.5rem' : props.fontSize === 'small' ? '0.75rem' : '1rem'};
-margin: 0.5px;
-padding: 0rem;
-width: ${props => props.size ? props.size * 100 : 50}px;
+margin: 5px;
+padding: 0 1rem;
+{/*width: ${props => props.size ? props.size * 100 : 50}px;*/}
 height: 36px;
 font-weight: bold;
 
 &:hover {
     background-color: #EF9A9A;
     color: #000000;
-    border: #EF9A9A;
+    border: solid 1px #EF9A9A;
     font-weight: bold;
 }
 `;
