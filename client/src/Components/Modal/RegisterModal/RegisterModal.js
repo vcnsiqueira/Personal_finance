@@ -99,7 +99,7 @@ RegisterModal.propTypes = {
     data: PropTypes.string,
     valor: PropTypes.string,
     comentario: PropTypes.string,
-    show: PropTypes.string,
+    show: PropTypes.bool,
     children: PropTypes.node.isRequired,
     handleClose: PropTypes.func,
 }

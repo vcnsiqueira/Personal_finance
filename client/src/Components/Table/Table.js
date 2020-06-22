@@ -1,5 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import './Table.css';
+
+import Icon from '../Icon/Icon';
 
 const removeAccent = word => word.normalize('NFD').replace(/[\u0300-\u036f]/g, "");
 
@@ -9,7 +12,7 @@ class Table extends React.Component {
         super(props);
 
         this.state = {
-            header: ['Tipo', 'Categoria', 'Data', 'Valor', 'Comentário'],
+            header: ['Tipo', 'Categoria', 'Data', 'Valor', 'Comentário', 'Ações'],
         };
     };
 
@@ -24,9 +27,10 @@ class Table extends React.Component {
                     <tr>
                     {
                         header.map(item => {
-                        return(
-                            <th>{item}</th>
-                        );
+                            if(item !== 'Ações'){ 
+                                return(<th>{item}<Icon color={'#FFF'}><i className="fas fa-sort"></i></Icon></th>);
+                            }
+                            return(<th>{item}</th>);
                         })
                     }
                     </tr>
@@ -41,6 +45,10 @@ class Table extends React.Component {
                                 <td>{item.data}</td>
                                 <td>{item.valor}</td>
                                 <td>{item.comentario}</td>
+                                <td>
+                                    <Icon color={'#4711B2'} border><i className="fas fa-pencil-alt"></i></Icon>
+                                    <Icon color={'#4711B2'} border><i className="fas fa-trash-alt"></i></Icon>
+                                </td>
                             </tr>
                             );
                         })

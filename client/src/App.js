@@ -77,7 +77,7 @@ class App extends Component {
     return (
       <Fragment>
         <Title>Controle Financeiro</Title>
-        <Button variant="solid" backgroundColor="#4711B2" onClick={this.toggleRegisterModal}>Novo Cadastro</Button>
+        <Button variant="solid" backgroundColor="#4711B2" onClick={this.toggleRegisterModal}>+</Button>
         <RegisterModal show={showRegisterModal} handleClose={this.toggleRegisterModal} handleSubmit={this.handleSubmit}>Novo Cadastro</RegisterModal>
         <Search type="text" value={searchTerm} onChange={this.handleSearch}/>
         <Table list = {list} searchTerm={searchTerm}/>

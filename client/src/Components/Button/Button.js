@@ -80,9 +80,8 @@ color: ${props => {
 }};
 font-size: ${props => props.fontSize === 'xlarge' ? '2.5rem' : props.fontSize === 'large' ? '1.5rem' : props.fontSize === 'small' ? '0.75rem' : '1rem'};
 margin: 5px;
-padding: 0 1rem;
+padding: 0.5rem 0.8rem;
 {/*width: ${props => props.size ? props.size * 100 : 50}px;*/}
-height: 36px;
 font-weight: bold;
 
 &:hover {
