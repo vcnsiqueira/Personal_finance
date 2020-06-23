@@ -15,6 +15,7 @@ class App extends Component {
     this.state = {
       list: [
         {
+          id: 0,
           tipo: 'Despesa',
           categoria: 'Supermercado',
           data: '2020-06-05',
@@ -22,6 +23,7 @@ class App extends Component {
           comentario: '',
         },
         {
+          id: 1,
           tipo: 'Despesa',
           categoria: 'Alimentação',
           data: '2020-06-05',
@@ -29,6 +31,7 @@ class App extends Component {
           comentario: '',
         },
         {
+          id: 2,
           tipo: 'Despesa',
           categoria: 'Farmácia',
           data: '2020-06-06',
@@ -45,7 +48,9 @@ class App extends Component {
   };
 
   handleSubmit = (dados) => {
+    const newId = Math.floor(Math.random(1) * 1000000000000000)
     const newElement = {
+      id: newId,
       tipo: dados.tipo,
       categoria: dados.categoria,
       data: dados.data,
@@ -55,7 +60,6 @@ class App extends Component {
     this.setState({
       list: [...this.state.list, newElement]
     });
-
   }
 
   handleSearch = event => {
@@ -68,7 +72,14 @@ class App extends Component {
     this.setState({
       showRegisterModal: !this.state.showRegisterModal,
     })
-  } 
+  }
+
+  handleRemove = id => {
+    const newList = this.state.list.filter((item) => item.id !== id);
+    this.setState({
+      list: [...newList],
+    });
+  };
 
   render() { 
 
@@ -80,7 +91,7 @@ class App extends Component {
         <Button variant="solid" backgroundColor="#4711B2" onClick={this.toggleRegisterModal}>+</Button>
         <RegisterModal show={showRegisterModal} handleClose={this.toggleRegisterModal} handleSubmit={this.handleSubmit}>Novo Cadastro</RegisterModal>
         <Search type="text" value={searchTerm} onChange={this.handleSearch}/>
-        <Table list = {list} searchTerm={searchTerm}/>
+        <Table list = {list} searchTerm={searchTerm} onRemove={this.handleRemove}/>
       </Fragment>
     );
   }
