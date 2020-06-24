@@ -6,6 +6,7 @@ import Table from './Components/Table/Table';
 import Search from './Components/Search/Search';
 import RegisterModal from './Components/Modal/RegisterModal/RegisterModal';
 import Button from './Components/Button/Button';
+import ConfirmModal from './Components/Modal/ConfirmModal/ConfirmModal';
 
 class App extends Component {
 
@@ -41,6 +42,7 @@ class App extends Component {
       ],
       searchTerm: '',
       showRegisterModal: false,
+      showConfirmModal: false
     };
 
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -74,6 +76,12 @@ class App extends Component {
     })
   }
 
+  toggleConfirmModal = event => {
+    this.setState({
+      showConfirmModal: !this.state.showConfirmModal,
+    })
+  }
+
   handleRemove = id => {
     const newList = this.state.list.filter((item) => item.id !== id);
     this.setState({
@@ -83,7 +91,7 @@ class App extends Component {
 
   render() { 
 
-    const { list, searchTerm, showRegisterModal } = this.state
+    const { list, searchTerm, showRegisterModal, showConfirmModal } = this.state
 
     return (
       <Fragment>
@@ -92,6 +100,7 @@ class App extends Component {
         <RegisterModal show={showRegisterModal} handleClose={this.toggleRegisterModal} handleSubmit={this.handleSubmit}>Novo Cadastro</RegisterModal>
         <Search type="text" value={searchTerm} onChange={this.handleSearch}/>
         <Table list = {list} searchTerm={searchTerm} onRemove={this.handleRemove}/>
+        <ConfirmModal show={showConfirmModal} handleClose={this.toggleConfirmModal}>Excluir</ConfirmModal>
       </Fragment>
     );
   }
