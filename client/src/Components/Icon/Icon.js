@@ -10,14 +10,14 @@ const Div = styled.div`
     padding: 0.5rem;
     margin: 0.2rem;
     :hover {
-        color: ${props => props.color !== '#FFF' ? '#FFF' : '#AAA'};
-        background-color: ${props => props.color};
+        color: ${props => props.hover ? props.color !== '#FFF' ? '#FFF' : '#AAA' : 'none'};
+        background-color: ${props => props.hover ? props.color : 'none'};
     }
 `
 
-const Icon = ({ children, color, border, item, onClick }) => {
+const Icon = ({ children, color, border, hover, onClick}) => {
     return(
-        <Div color={color} border={border} item={item} onClick={() => onClick(item.id)}>
+        <Div color={color} border={border} hover={hover} onClick={onClick}>
             {children}
         </Div>
     );
@@ -27,7 +27,6 @@ Icon.propTypes = {
     color: PropTypes.string,
     children: PropTypes.node.isRequired,
     border: PropTypes.bool,
-    item: PropTypes.object,
     onClick: PropTypes.func,
 }
 

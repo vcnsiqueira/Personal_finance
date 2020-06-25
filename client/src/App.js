@@ -6,7 +6,6 @@ import Table from './Components/Table/Table';
 import Search from './Components/Search/Search';
 import RegisterModal from './Components/Modal/RegisterModal/RegisterModal';
 import Button from './Components/Button/Button';
-import ConfirmModal from './Components/Modal/ConfirmModal/ConfirmModal';
 
 class App extends Component {
 
@@ -42,11 +41,12 @@ class App extends Component {
       ],
       searchTerm: '',
       showRegisterModal: false,
-      showConfirmModal: false
     };
 
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleSearch = this.handleSearch.bind(this);
+    this.toggleRegisterModal = this.toggleRegisterModal.bind(this);
+    this.handleRemove = this.handleRemove.bind(this);
   };
 
   handleSubmit = (dados) => {
@@ -76,12 +76,6 @@ class App extends Component {
     })
   }
 
-  toggleConfirmModal = event => {
-    this.setState({
-      showConfirmModal: !this.state.showConfirmModal,
-    })
-  }
-
   handleRemove = id => {
     const newList = this.state.list.filter((item) => item.id !== id);
     this.setState({
@@ -91,16 +85,17 @@ class App extends Component {
 
   render() { 
 
-    const { list, searchTerm, showRegisterModal, showConfirmModal } = this.state
+    const { list, searchTerm, showRegisterModal } = this.state
 
     return (
       <Fragment>
         <Title>Controle Financeiro</Title>
-        <Button variant="solid" backgroundColor="#4711B2" onClick={this.toggleRegisterModal}>+</Button>
-        <RegisterModal show={showRegisterModal} handleClose={this.toggleRegisterModal} handleSubmit={this.handleSubmit}>Novo Cadastro</RegisterModal>
-        <Search type="text" value={searchTerm} onChange={this.handleSearch}/>
+        <div className="app-header">
+          <Button variant="solid" backgroundColor="#4711B2" onClick={this.toggleRegisterModal}>+</Button>
+          <RegisterModal show={showRegisterModal} handleClose={this.toggleRegisterModal} handleSubmit={this.handleSubmit}>Novo Cadastro</RegisterModal>
+          <Search type="text" value={searchTerm} onChange={this.handleSearch}/>
+        </div>
         <Table list = {list} searchTerm={searchTerm} onRemove={this.handleRemove}/>
-        <ConfirmModal show={showConfirmModal} handleClose={this.toggleConfirmModal}>Excluir</ConfirmModal>
       </Fragment>
     );
   }

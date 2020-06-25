@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import './RegisterModal.css'
+import '../Modal.css'
 
 import Button from '../../Button/Button';
 import Input from '../../Input/Input';
@@ -21,6 +21,7 @@ class RegisterModal extends Component {
         };
 
         this.handleInput = this.handleInput.bind(this);
+        this.handleSelect = this.handleSelect.bind(this);
         this.submitForm = this.submitForm.bind(this);
 
     };
