@@ -14,16 +14,20 @@ class Table extends React.Component {
 
         this.state = {
             header: ['Tipo', 'Categoria', 'Data', 'Valor', 'Comentário', 'Ações'],
-            showConfirmModal: false,
+            showConfirmModal: null,
             sortedField: null,
         };
-
-        this.toggleConfirmModal = this.toggleConfirmModal.bind(this);
     };
 
-    toggleConfirmModal = event => {
+    openConfirmModal = (item) => {
         this.setState({
-          showConfirmModal: !this.state.showConfirmModal,
+          showConfirmModal: item,
+        })
+    }
+
+    closeConfirmModal = () => {
+        this.setState({
+          showConfirmModal: null,
         })
     }
 
@@ -44,11 +48,16 @@ class Table extends React.Component {
                     <thead>
                         <tr>
                         {
-                            header.map(item => {
-                                if(item !== 'Ações'){ 
-                                    return(<th>{item}<Icon color='#FFF' onClick={() => this.sortElement(item)}><i className="fas fa-sort"></i></Icon></th>);
+                            header.map((item, index) => {
+                                if(item !== 'Ações'){
+                                    return(
+                                        <th key={index}>
+                                            {item}
+                                            <Icon color='#FFF' onClick={() => this.sortElement(item)}><i className="fas fa-sort"></i></Icon>
+                                        </th>);
                                 }
-                                return(<th>{item}</th>);
+
+                                return(<th key={index}>{item}</th>);
                             })
                         }
                         </tr>
@@ -65,9 +74,9 @@ class Table extends React.Component {
                                     <td>{item.comentario}</td>
                                     <td>
                                         <Icon color='#4711B2' border hover><i className="fas fa-pencil-alt"></i></Icon>
-                                        <Icon color='#4711B2' border hover onClick={this.toggleConfirmModal}><i className="fas fa-trash-alt"></i></Icon>
+                                        <Icon color='#4711B2' border hover onClick={() => this.openConfirmModal(item)}><i className="fas fa-trash-alt"></i></Icon>
+                                        <ConfirmModal show={showConfirmModal === item} handleClose={this.closeConfirmModal} element={item} onRemove={onRemove}>Excluir</ConfirmModal>
                                     </td>
-                                    <ConfirmModal show={showConfirmModal} handleClose={this.toggleConfirmModal} element={item} onRemove={onRemove}>Excluir</ConfirmModal>
                                 </tr>
                                 );
                             })

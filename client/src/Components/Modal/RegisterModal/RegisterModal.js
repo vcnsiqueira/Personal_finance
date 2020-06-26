@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import '../Modal.css'
 
@@ -27,7 +27,7 @@ class RegisterModal extends Component {
     };
 
     handleInput = event => {
-        const { name, value } = event.target;
+        const {name, value} = event.target;
         this.setState({
             [name]: value,
         });
@@ -45,50 +45,59 @@ class RegisterModal extends Component {
     };
 
     render() {
-    
-        const { tipo, categoria, data, valor, comentario } = this.state;
-        const { show, children, handleClose } = this.props;
-        const selectTypeOptions = [ 'Receita', 'Despesa' ];
-        //const showHideClassName = show ? "modal display-block" : "modal display-none"
 
-        return(
-            !show 
-                ? null :
-                <div className="modal display-block">
-                    <div className="modal-wrapper">
-                        <div className="modal-header">
-                            <h3>{children}</h3>
-                        </div>
-                        <form onSubmit={this.submitForm}>
-                            <div className="modal-body">
-                                <div>
-                                    <Label>Cadastro:</Label>
-                                    <Select name="tipo" value={tipo} onChange={this.handleSelect} options={selectTypeOptions}/>
-                                </div>
-                                <div>
-                                    <Label>Categoria:</Label>
-                                    <Input type="text" name="categoria" value={categoria} onChange={this.handleInput} placeholder="Digite a categoria"/>
-                                </div>
-                                <div>
-                                    <Label>Data:</Label>
-                                    <Input type="date" name="data" value={data} onChange={this.handleInput} placeholder="Escolha uma data"/>
-                                </div>
-                                <div>
-                                    <Label>Valor:</Label>
-                                    <Input type="number" name="valor" value={valor} onChange={this.handleInput} placeholder="Digite o valor"/>
-                                </div>
-                                <div>
-                                    <Label>Comentário:</Label>
-                                    <Input type="text" name="comentario" value={comentario} onChange={this.handleInput} placeholder="Opcional"/>
-                                </div>
-                            </div>
-                            <div className="modal-footer">
-                                <Button backgroundColor="#4711B2" onClick={handleClose}>Cancelar</Button>
-                                <Button variant="solid" backgroundColor="#4711B2" type="submit">Cadastrar</Button>
-                            </div>
-                        </form>
+        const {tipo, categoria, data, valor, comentario} = this.state;
+        const {show, children, handleClose} = this.props;
+        const selectTypeOptions = ['Receita', 'Despesa'];
+        const showHideClassName = show ? "modal display-block" : "modal display-none"
+
+        const handleEscape = function (event) {
+            if (event.key === 'Escape') {
+                handleClose();
+            }
+        };
+
+        return (
+            <div className={showHideClassName}>
+                <div className="modal-wrapper">
+                    <div className="modal-header">
+                        <h3>{children}</h3>
                     </div>
+                    <form onReset={handleClose} onKeyDown={handleEscape} onSubmit={this.submitForm}>
+                        <div className="modal-body">
+                            <div>
+                                <Label>Cadastro:</Label>
+                                <Select name="tipo" value={tipo} onChange={this.handleSelect}
+                                        options={selectTypeOptions} />
+                            </div>
+                            <div>
+                                <Label>Categoria:</Label>
+                                <Input type="text" name="categoria" value={categoria} onChange={this.handleInput}
+                                       placeholder="Digite a categoria" />
+                            </div>
+                            <div>
+                                <Label>Data:</Label>
+                                <Input type="date" name="data" value={data} onChange={this.handleInput}
+                                       placeholder="Escolha uma data" />
+                            </div>
+                            <div>
+                                <Label>Valor:</Label>
+                                <Input type="number" name="valor" value={valor} onChange={this.handleInput}
+                                       placeholder="Digite o valor" />
+                            </div>
+                            <div>
+                                <Label>Comentário:</Label>
+                                <Input type="text" name="comentario" value={comentario} onChange={this.handleInput}
+                                       placeholder="Opcional" />
+                            </div>
+                        </div>
+                        <div className="modal-footer">
+                            <Button backgroundColor="#4711B2" type="reset">Cancelar</Button>
+                            <Button variant="solid" backgroundColor="#4711B2" type="submit">Cadastrar</Button>
+                        </div>
+                    </form>
                 </div>
+            </div>
         );
     }
 
