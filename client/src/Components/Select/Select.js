@@ -27,11 +27,11 @@ const SelectStyles = styled.select`
 
 const Select = ({ value, options, onChange }) => {
     return(
-        <SelectStyles value={value} onChange={onChange}>
-                <option value='' selected disabled>Escolha</option>
+        <SelectStyles defaultValue={value} onChange={onChange}>
+                <option value={''} disabled>Escolha</option>
                 {options.map(option => {
                     return(
-                        <option value={option}>{option}</option>
+                        <option key={option} value={option}>{option}</option>
                     )
                 })}
         </SelectStyles>

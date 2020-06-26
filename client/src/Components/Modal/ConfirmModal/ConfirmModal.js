@@ -8,13 +8,19 @@ const ConfirmModal = ({ show, handleClose, children, element, onRemove }) => {
     
     const showHideClassName = show ? "modal display-block" : "modal display-none"
     
-    const removeElement = (element) => {
+    const removeElement = element => {
         onRemove(element.id);
         handleClose();
     };
+
+    const handleBackground = event => { // Função para fechar o modal ao clicar fora
+        if (!event.target.closest('.modal-wrapper')) {
+            handleClose();
+        }
+    };
     
     return(
-        <div className={showHideClassName}>
+        <div className={showHideClassName} onClick={handleBackground}>
             <div className="modal-wrapper">
                 <div className="modal-header">
                     <h3>{children}</h3>
@@ -24,7 +30,7 @@ const ConfirmModal = ({ show, handleClose, children, element, onRemove }) => {
                 </div>
                 <div className="modal-footer">
                     <Button backgroundColor="#4711B2" onClick={handleClose}>Cancelar</Button>
-                    <Button variant="solid" backgroundColor="#4711B2" type="submit" onClick={() => removeElement(element)}>Sim</Button>
+                    <Button variant="solid" backgroundColor="#4711B2" onClick={() => removeElement(element)}>Sim</Button>
                 </div>
             </div>
         </div>
