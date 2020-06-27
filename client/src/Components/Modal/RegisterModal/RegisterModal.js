@@ -52,10 +52,11 @@ class RegisterModal extends Component {
         const showHideClassName = show ? "modal display-block" : "modal display-none"
 
         const handleEscape = event => {
-            if (event.key === "Escape") {
+            console.log(event.key);
+            if (event.key === 'Escape') {
                 handleClose();
-            }
-        }
+            };
+        };
 
         const handleBackground = event => {
             if (!event.target.closest('.modal-wrapper')) {
@@ -65,11 +66,11 @@ class RegisterModal extends Component {
 
         return(
             <div className={showHideClassName} onClick={handleBackground}>
-                <div className="modal-wrapper">
+                <div className="modal-wrapper" >
                     <div className="modal-header">
                         <h3>{children}</h3>
                     </div>
-                    <form onReset={handleClose} onKeyDown={handleEscape} onSubmit={this.submitForm}>
+                    <form onReset={handleClose} onKeyDown={() => handleEscape()} onSubmit={this.submitForm}>
                         <div className="modal-body">
                             <div>
                                 <Label>Cadastro:</Label>
