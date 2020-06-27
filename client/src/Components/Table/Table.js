@@ -42,6 +42,18 @@ class Table extends React.Component {
 
     sortList = () => {
         let sortableList = [...this.props.list];
+        if(this.state.sortConfig.key === 'valor') {
+            sortableList.sort((a,b) => {
+                if(parseFloat(a.valor) < parseFloat(b.valor)) {
+                    return this.state.sortConfig.direction === 'ascending' ? -1 : 1;
+                }
+                if(parseFloat(a.valor) > parseFloat(b.valor)) {
+                    return this.state.sortConfig.direction === 'ascending' ? 1 : -1;
+                }
+                return 0;
+            });
+            return(sortableList);
+        }
         sortableList.sort((a, b) => {
             if(a[this.state.sortConfig.key] < b[this.state.sortConfig.key]) {
                 return this.state.sortConfig.direction === 'ascending' ? -1 : 1;
@@ -51,7 +63,6 @@ class Table extends React.Component {
             };
             return 0;
         });
-        console.log(sortableList);
         return(sortableList)
     };
 
@@ -59,9 +70,6 @@ class Table extends React.Component {
         let direction = 'ascending';
         let iconClass = 'sort-up'
         const newKey = removeAccent(name.toLowerCase());
-        console.log(`A coluna clicada foi ${newKey}`);
-        console.log(`sortConfig.key atual é ${this.state.sortConfig.key}`)
-        console.log(`sortConfig.direction atual é ${this.state.sortConfig.direction}`)
         if (this.state.sortConfig.key === newKey && this.state.sortConfig.direction === 'ascending') {
             direction = 'descending';
             iconClass = 'sort-down'; 
@@ -73,8 +81,6 @@ class Table extends React.Component {
                 class: iconClass,
             },
         });
-        console.log(`sortConfig.key = ${this.state.sortConfig.key}`)
-        console.log(`sortConfig.direction = ${this.state.sortConfig.direction}`)
     };
 
     selectIcon = item => {
@@ -90,9 +96,6 @@ class Table extends React.Component {
         const { list, searchTerm, onRemove } = this.props;
 
         const showList = sortConfig.key !== null ? this.sortList() : list; 
-        
-        
-
 
         return(
             <div>
