@@ -18,13 +18,14 @@ class Table extends React.Component {
             sortConfig: {
                 key: null,
                 direction: null,
+                class: 'sort'
             },
-            sortedList: [],
         };
 
         this.openConfirmModal = this.openConfirmModal.bind(this);
         this.closeConfirmModal = this.closeConfirmModal.bind(this);
         this.requestSort = this.requestSort.bind(this);
+        this.sortList = this.sortList.bind(this);
     };
 
     openConfirmModal = item => {
@@ -51,35 +52,47 @@ class Table extends React.Component {
             return 0;
         });
         console.log(sortableList);
-        this.setState({
-            sortedList: sortableList,
-        })
+        return(sortableList)
     };
 
     requestSort = name => {
         let direction = 'ascending';
+        let iconClass = 'sort-up'
         const newKey = removeAccent(name.toLowerCase());
         console.log(`A coluna clicada foi ${newKey}`);
         console.log(`sortConfig.key atual é ${this.state.sortConfig.key}`)
         console.log(`sortConfig.direction atual é ${this.state.sortConfig.direction}`)
         if (this.state.sortConfig.key === newKey && this.state.sortConfig.direction === 'ascending') {
             direction = 'descending';
+            iconClass = 'sort-down'; 
         }
         this.setState({
             sortConfig: {
                 key: newKey,
                 direction: direction,
+                class: iconClass,
             },
         });
-        this.sortList();
+        console.log(`sortConfig.key = ${this.state.sortConfig.key}`)
+        console.log(`sortConfig.direction = ${this.state.sortConfig.direction}`)
     };
+
+    selectIcon = item => {
+        if( removeAccent(item).toLowerCase() !== this.state.sortConfig.key){
+            return(['sort','#FFF']);
+        };
+        return([this.state.sortConfig.class,'#FF9626']);
+    }
 
     render() {
 
-        const { header, showConfirmModal, sortConfig, sortedList } = this.state;
+        const { header, showConfirmModal, sortConfig } = this.state;
         const { list, searchTerm, onRemove } = this.props;
 
-        const showList = sortedList.length > 0 ? sortedList : list; 
+        const showList = sortConfig.key !== null ? this.sortList() : list; 
+        
+        
+
 
         return(
             <div>
@@ -89,7 +102,7 @@ class Table extends React.Component {
                         {
                             header.map((item, index) => {
                                 if(item !== 'Ações'){ 
-                                    return(<th key={index} onClick={() => this.requestSort(item)}>{item}<Icon color='#FFF'><i className="fas fa-sort"/></Icon></th>);
+                                    return(<th key={index} onClick={() => this.requestSort(item)}>{item}<Icon color={this.selectIcon(item)[1]}><i className={`fas fa-${this.selectIcon(item)[0]}`}/></Icon></th>);
                                 }
                                 return(<th key={index}>{item}</th>);
                             })
