@@ -4,6 +4,7 @@ import './Table.css';
 
 import Icon from '../Icon/Icon';
 import ConfirmModal from '../Modal/ConfirmModal/ConfirmModal';
+import EditModal from '../Modal/EditModal/EditModal';
 
 const removeAccent = word => word.normalize('NFD').replace(/[\u0300-\u036f]/g, "");
 
@@ -15,6 +16,7 @@ class Table extends React.Component {
         this.state = {
             header: ['Tipo', 'Categoria', 'Data', 'Valor', 'Comentário', 'Ações'],
             showConfirmModal: null,
+            showEditModal: null,
             sortConfig: {
                 key: null,
                 direction: null,
@@ -24,8 +26,22 @@ class Table extends React.Component {
 
         this.openConfirmModal = this.openConfirmModal.bind(this);
         this.closeConfirmModal = this.closeConfirmModal.bind(this);
+        this.openEditModal = this.openEditModal.bind(this);
+        this.closeEditModal = this.closeEditModal.bind(this);
         this.requestSort = this.requestSort.bind(this);
         this.sortList = this.sortList.bind(this);
+    };
+
+    openEditModal = item => {
+        this.setState({
+            showEditModal: item,
+        });
+    };
+
+    closeEditModal = item => {
+        this.setState({
+            showEditModal: null,
+        });
     };
 
     openConfirmModal = item => {
@@ -92,7 +108,7 @@ class Table extends React.Component {
 
     render() {
 
-        const { header, showConfirmModal, sortConfig } = this.state;
+        const { header, showConfirmModal, sortConfig, showEditModal } = this.state;
         const { list, searchTerm, onRemove } = this.props;
 
         const showList = sortConfig.key !== null ? this.sortList() : list; 
@@ -123,7 +139,8 @@ class Table extends React.Component {
                                     <td>{item.valor}</td>
                                     <td>{item.comentario}</td>
                                     <td>
-                                        <Icon color='#4711B2' border hover><i className="fas fa-pencil-alt"/></Icon>
+                                        <Icon color='#4711B2' border hover onClick={() => this.openEditModal(item)}><i className="fas fa-pencil-alt"/></Icon>
+                                        <EditModal show={showEditModal === item} element={item} handleClose={this.closeEditModal}>Editar</EditModal>
                                         <Icon color='#4711B2' border hover onClick={() => this.openConfirmModal(item)}><i className="fas fa-trash-alt"/></Icon>
                                         <ConfirmModal show={showConfirmModal === item} handleClose={this.closeConfirmModal} element={item} onRemove={onRemove}>Excluir</ConfirmModal>
                                     </td>

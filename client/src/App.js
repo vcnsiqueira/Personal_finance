@@ -83,6 +83,15 @@ class App extends Component {
     });
   };
 
+  /*handleEdit = id => {
+    const newList = this.state.list.map(item => {
+      if(item.id !== id){
+        return item
+      }
+
+    })
+  }*/
+
   render() { 
 
     const { list, searchTerm, showRegisterModal } = this.state

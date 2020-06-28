@@ -42,6 +42,7 @@ class RegisterModal extends Component {
     submitForm = event => {
         event.preventDefault();
         this.props.handleSubmit(this.state);
+        this.props.handleClose();
     };
 
     render() {
@@ -70,23 +71,23 @@ class RegisterModal extends Component {
                     <div className="modal-header">
                         <h3>{children}</h3>
                     </div>
-                    <form onReset={handleClose} onKeyDown={() => handleEscape()} onSubmit={this.submitForm}>
+                    <form onReset={handleClose} onSubmit={this.submitForm}>
                         <div className="modal-body">
                             <div>
-                                <Label>Cadastro:</Label>
+                                <Label>Tipo:</Label>
                                 <Select name="tipo" value={tipo} onChange={this.handleSelect} options={selectTypeOptions}/>
                             </div>
                             <div>
                                 <Label>Categoria:</Label>
-                                <Input type="text" name="categoria" value={categoria} onChange={this.handleInput} placeholder="Digite a categoria"/>
+                                <Input type="text" name="categoria" value={categoria} onChange={this.handleInput} placeholder="Digite a categoria" required/>
                             </div>
                             <div>
                                 <Label>Data:</Label>
-                                <Input type="date" name="data" value={data} onChange={this.handleInput} placeholder="Escolha uma data"/>
+                                <Input type="date" name="data" value={data} onChange={this.handleInput} placeholder="Escolha uma data" required/>
                             </div>
                             <div>
                                 <Label>Valor:</Label>
-                                <Input type="number" name="valor" value={valor} onChange={this.handleInput} placeholder="Digite o valor"/>
+                                <Input type="number" name="valor" value={valor} onChange={this.handleInput} placeholder="Digite o valor" required/>
                             </div>
                             <div>
                                 <Label>Comentário:</Label>
