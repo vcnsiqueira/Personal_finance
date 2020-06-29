@@ -43,13 +43,13 @@ class App extends Component {
       showRegisterModal: false,
     };
 
-    this.handleSubmit = this.handleSubmit.bind(this);
+    this.addElement = this.addElement.bind(this);
     this.handleSearch = this.handleSearch.bind(this);
     this.toggleRegisterModal = this.toggleRegisterModal.bind(this);
     this.handleRemove = this.handleRemove.bind(this);
   };
 
-  handleSubmit = (dados) => {
+  addElement = (dados) => {
     const newId = Math.floor(Math.random(1) * 1000000000000000)
     const newElement = {
       id: newId,
@@ -83,14 +83,12 @@ class App extends Component {
     });
   };
 
-  /*handleEdit = id => {
-    const newList = this.state.list.map(item => {
-      if(item.id !== id){
-        return item
-      }
-
-    })
-  }*/
+  editElement = (item, index) => {
+    const newList = [...this.state.list].splice(index, 1, item);
+    this.setState({
+      list: [...newList],
+    });
+  };
 
   render() { 
 
@@ -101,10 +99,10 @@ class App extends Component {
         <Title>Controle Financeiro</Title>
         <div className="app-header">
           <Button variant="solid" backgroundColor="#4711B2" onClick={this.toggleRegisterModal}>+</Button>
-          <RegisterModal show={showRegisterModal} handleClose={this.toggleRegisterModal} handleSubmit={this.handleSubmit}>Novo Cadastro</RegisterModal>
+          <RegisterModal show={showRegisterModal} handleClose={this.toggleRegisterModal} addElement={this.addElement}>Novo Cadastro</RegisterModal>
           <Search type="text" value={searchTerm} onChange={this.handleSearch}/>
         </div>
-        <Table list = {list} searchTerm={searchTerm} onRemove={this.handleRemove}/>
+        <Table list = {list} searchTerm={searchTerm} editElement={this.editElement} onRemove={this.handleRemove}/>
       </Fragment>
     );
   }

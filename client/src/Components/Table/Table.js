@@ -109,7 +109,7 @@ class Table extends React.Component {
     render() {
 
         const { header, showConfirmModal, sortConfig, showEditModal } = this.state;
-        const { list, searchTerm, onRemove } = this.props;
+        const { list, searchTerm, onRemove, editElement } = this.props;
 
         const showList = sortConfig.key !== null ? this.sortList() : list; 
 
@@ -130,7 +130,7 @@ class Table extends React.Component {
                     </thead>
                     <tbody>
                         {
-                            showList.filter(item => removeAccent(item.categoria).toLowerCase().includes(removeAccent(searchTerm).toLowerCase())).map(item => {
+                            showList.filter(item => removeAccent(item.categoria).toLowerCase().includes(removeAccent(searchTerm).toLowerCase())).map((item, index) => {
                                 return(
                                 <tr key={item.id}>
                                     <td>{item.tipo}</td>
@@ -140,7 +140,7 @@ class Table extends React.Component {
                                     <td>{item.comentario}</td>
                                     <td>
                                         <Icon color='#4711B2' border hover onClick={() => this.openEditModal(item)}><i className="fas fa-pencil-alt"/></Icon>
-                                        <EditModal show={showEditModal === item} element={item} handleClose={this.closeEditModal}>Editar</EditModal>
+                                        <EditModal show={showEditModal === item} element={item} index={index} handleClose={this.closeEditModal} editElement={editElement}>Editar Cadastro</EditModal>
                                         <Icon color='#4711B2' border hover onClick={() => this.openConfirmModal(item)}><i className="fas fa-trash-alt"/></Icon>
                                         <ConfirmModal show={showConfirmModal === item} handleClose={this.closeConfirmModal} element={item} onRemove={onRemove}>Excluir</ConfirmModal>
                                     </td>

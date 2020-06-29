@@ -15,6 +15,7 @@ class EditModal extends Component {
         super(props);
         
         this.state = {
+            id: this.props.element.id,
             tipo: this.props.element.tipo,
             categoria: this.props.element.categoria,
             data: this.props.element.data,
@@ -35,10 +36,24 @@ class EditModal extends Component {
         });
     };
 
+    handleSelect = event => {
+        this.setState({
+            'tipo': event.target.value,
+        })
+    }
+
+    submitForm = event => {
+        event.preventDefault();
+        console.log(this.state);
+        console.log(this.props.index);
+        this.props.editElement(this.state, this.props.index);
+        this.props.handleClose();
+    }
+
     render() {
 
         const { tipo, categoria, data, valor, comentario } = this.state;
-        const { show, children, element, handleClose } = this.props;
+        const { show, children, handleClose } = this.props;
 
         const showHideClassName = show ? "modal display-block" : "modal display-none"
 
@@ -54,32 +69,34 @@ class EditModal extends Component {
                     <div className="modal-header">
                         <h3>{children}</h3>
                     </div>
-                    <div className="modal-body">
-                        <div>
-                            <Label>Tipo:</Label>
-                            <Select name="tipo" value={tipo} /*onChange={this.handleSelect}*/ options={selectTypeOptions}/>
+                    <form onReset={handleClose} onSubmit={this.submitForm}>
+                        <div className="modal-body">
+                            <div>
+                                <Label>Tipo:</Label>
+                                <Select name="tipo" value={tipo} onChange={this.handleSelect} options={selectTypeOptions}/>
+                            </div>
+                            <div>
+                                <Label>Categoria:</Label>
+                                <Input type="text" name="categoria" value={categoria} onChange={this.handleInput} placeholder="Digite a categoria" required/>
+                            </div>
+                            <div>
+                                <Label>Data:</Label>
+                                <Input type="date" name="data" value={data} onChange={this.handleInput} placeholder="Escolha uma data" required/>
+                            </div>
+                            <div>
+                                <Label>Valor:</Label>
+                                <Input type="number" name="valor" value={valor} onChange={this.handleInput} placeholder="Digite o valor" required/>
+                            </div>
+                            <div>
+                                <Label>Comentário:</Label>
+                                <Input type="text" name="comentario" value={comentario} onChange={this.handleInput} placeholder="Opcional"/>
+                            </div>
                         </div>
-                        <div>
-                            <Label>Categoria:</Label>
-                            <Input type="text" name="categoria" value={categoria} onChange={this.handleInput} placeholder="Digite a categoria" required/>
+                        <div className="modal-footer">
+                            <Button backgroundColor="#4711B2" type="reset">Cancelar</Button>
+                            <Button variant="solid" backgroundColor="#4711B2" type="submit">Salvar</Button>
                         </div>
-                        <div>
-                            <Label>Data:</Label>
-                            <Input type="date" name="data" value={data} onChange={this.handleInput} placeholder="Escolha uma data" required/>
-                        </div>
-                        <div>
-                            <Label>Valor:</Label>
-                            <Input type="number" name="valor" value={valor} onChange={this.handleInput} placeholder="Digite o valor" required/>
-                        </div>
-                        <div>
-                            <Label>Comentário:</Label>
-                            <Input type="text" name="comentario" value={comentario} onChange={this.handleInput} placeholder="Opcional"/>
-                        </div>
-                    </div>
-                    <div className="modal-footer">
-                        <Button backgroundColor="#4711B2" onClick={handleClose}>Cancelar</Button>
-                        <Button variant="solid" backgroundColor="#4711B2">Salvar</Button>
-                    </div>
+                    </form>
                 </div>
             </div>
         );

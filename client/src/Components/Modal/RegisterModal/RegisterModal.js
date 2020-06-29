@@ -41,7 +41,7 @@ class RegisterModal extends Component {
 
     submitForm = event => {
         event.preventDefault();
-        this.props.handleSubmit(this.state);
+        this.props.addElement(this.state);
         this.props.handleClose();
     };
 
@@ -52,12 +52,12 @@ class RegisterModal extends Component {
         const selectTypeOptions = [ 'Receita', 'Despesa' ];
         const showHideClassName = show ? "modal display-block" : "modal display-none"
 
-        const handleEscape = event => {
+        /*const handleEscape = event => {
             console.log(event.key);
             if (event.key === 'Escape') {
                 handleClose();
             };
-        };
+        };*/
 
         const handleBackground = event => {
             if (!event.target.closest('.modal-wrapper')) {
