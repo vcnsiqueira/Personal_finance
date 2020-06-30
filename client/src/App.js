@@ -84,7 +84,12 @@ class App extends Component {
   };
 
   editElement = (item, index) => {
-    const newList = [...this.state.list].splice(index, 1, item);
+    console.log(item);
+    console.log(index);
+    console.log(this.state.list);
+    let newList = [...this.state.list]
+    newList.splice(index, 1, item);
+    console.log(newList);
     this.setState({
       list: [...newList],
     });

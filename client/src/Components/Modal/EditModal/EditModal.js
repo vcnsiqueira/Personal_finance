@@ -21,13 +21,16 @@ class EditModal extends Component {
             data: this.props.element.data,
             valor: this.props.element.valor,
             comentario: this.props.element.comentario,
+            initialState: {
+                id: this.props.element.id,
+                tipo: this.props.element.tipo,
+                categoria: this.props.element.categoria,
+                data: this.props.element.data,
+                valor: this.props.element.valor,
+                comentario: this.props.element.comentario,
+            }
         };
     };
-
-    /*const removeElement = element => {
-        onRemove(element.id);
-        handleClose();
-    };*/
 
     handleInput = event => {
         const { name, value } = event.target;
@@ -38,38 +41,59 @@ class EditModal extends Component {
 
     handleSelect = event => {
         this.setState({
-            'tipo': event.target.value,
+            tipo: event.target.value,
         })
     }
 
     submitForm = event => {
+        console.log(this.state.initialState);
         event.preventDefault();
         console.log(this.state);
         console.log(this.props.index);
         this.props.editElement(this.state, this.props.index);
         this.props.handleClose();
-    }
+    };
+
+    cancelEdit = event => {
+        this.setState({
+            id: this.state.initialState.id,
+            tipo: this.state.initialState.tipo,
+            categoria: this.state.initialState.categoria,
+            data: this.state.initialState.data,
+            valor: this.state.initialState.valor,
+            comentario: this.state.initialState.comentario,
+        });
+        this.props.handleClose();
+    };
+
+    handleBackground = event => { // Função para fechar o modal ao clicar fora
+        if (!event.target.closest('.modal-wrapper')) {
+            this.setState({
+                id: this.state.initialState.id,
+                tipo: this.state.initialState.tipo,
+                categoria: this.state.initialState.categoria,
+                data: this.state.initialState.data,
+                valor: this.state.initialState.valor,
+                comentario: this.state.initialState.comentario,
+            });
+            this.props.handleClose();
+        }
+    };
 
     render() {
 
         const { tipo, categoria, data, valor, comentario } = this.state;
-        const { show, children, handleClose } = this.props;
+        const { show, children } = this.props;
 
         const showHideClassName = show ? "modal display-block" : "modal display-none"
 
-        const handleBackground = event => { // Função para fechar o modal ao clicar fora
-            if (!event.target.closest('.modal-wrapper')) {
-                handleClose();
-            }
-        };
-
         return(
-            <div className={showHideClassName} onClick={handleBackground}>
+            <div className={showHideClassName} onClick={this.handleBackground}>
                 <div className="modal-wrapper">
                     <div className="modal-header">
                         <h3>{children}</h3>
                     </div>
-                    <form onReset={handleClose} onSubmit={this.submitForm}>
+                    <form onReset={this.cancelEdit} onSubmit={this.submitForm}>
                         <div className="modal-body">
                             <div>
                                 <Label>Tipo:</Label>
