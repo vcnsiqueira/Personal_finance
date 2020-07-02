@@ -6,6 +6,7 @@ import Table from './Components/Table/Table';
 import Search from './Components/Search/Search';
 import RegisterModal from './Components/Modal/RegisterModal/RegisterModal';
 import Button from './Components/Button/Button';
+import Barchart from './Components/Barchart/Barchart';
 
 class App extends Component {
 
@@ -37,6 +38,14 @@ class App extends Component {
           data: '2020-06-06',
           valor: '45.00',
           comentario: 'Teste',
+        },
+        {
+          id: 3,
+          tipo: 'Despesa',
+          categoria: 'Supermercado',
+          data: '2020-06-05',
+          valor: '250.00',
+          comentario: '',
         }
       ],
       searchTerm: '',
@@ -108,6 +117,7 @@ class App extends Component {
           <Search type="text" value={searchTerm} onChange={this.handleSearch}/>
         </div>
         <Table list = {list} searchTerm={searchTerm} editElement={this.editElement} onRemove={this.handleRemove}/>
+        <Barchart list={list}/>
       </Fragment>
     );
   }
