@@ -8,6 +8,9 @@ import RegisterModal from './Components/Modal/RegisterModal/RegisterModal';
 import Button from './Components/Button/Button';
 import Barchart from './Components/Barchart/Barchart';
 
+
+const removeAccent = word => word.normalize('NFD').replace(/[\u0300-\u036f]/g, "");
+
 class App extends Component {
 
   constructor(props){
@@ -108,6 +111,33 @@ class App extends Component {
 
     const { list, searchTerm, showRegisterModal } = this.state
 
+    const uniqueList = () => { // Função para pegar apenas os elementos únicos das categorias da lista
+      const flatList = [...this.state.list.map(element => element.categoria)];
+      const uniqueCategories = flatList.filter((value, index) => {
+          return flatList.indexOf(value) === index
+      });
+      const orderedElements = uniqueCategories.sort((a,b) => {
+        if(removeAccent(a.toLowerCase()) < removeAccent(b.toLowerCase())) {
+          return -1;
+        }
+        if(removeAccent(a.toLowerCase()) > removeAccent(b.toLowerCase())) {
+          return 1;
+        }
+        return 0;
+      });
+      return orderedElements;
+    }
+  
+    const sumUnique = () => {
+        const values = [];
+        uniqueList().forEach((item) => {
+            values.push(this.state.list.filter(element => element.categoria === item)
+                .reduce((sum, element) => sum + parseFloat(element.valor), 0)
+            )
+        })
+        return values;
+    }
+
     return (
       <Fragment>
         <Title>Controle Financeiro</Title>
@@ -117,7 +147,7 @@ class App extends Component {
           <Search type="text" value={searchTerm} onChange={this.handleSearch}/>
         </div>
         <Table list = {list} searchTerm={searchTerm} editElement={this.editElement} onRemove={this.handleRemove}/>
-        <Barchart list={list}/>
+        <Barchart labels={uniqueList()} data={sumUnique()}/>        
       </Fragment>
     );
   }
