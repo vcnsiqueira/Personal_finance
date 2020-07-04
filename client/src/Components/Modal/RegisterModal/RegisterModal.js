@@ -45,6 +45,17 @@ class RegisterModal extends Component {
         this.props.handleClose();
     };
 
+    cancelRegister = event => {
+        this.setState({
+            tipo: '',
+            categoria: '',
+            data: '',
+            valor: '',
+            comentario: '',
+        })
+        this.props.handleClose();
+    }
+
     render() {
     
         const { tipo, categoria, data, valor, comentario } = this.state;
@@ -71,7 +82,7 @@ class RegisterModal extends Component {
                     <div className="modal-header">
                         <h3>{children}</h3>
                     </div>
-                    <form onReset={handleClose} onSubmit={this.submitForm}>
+                    <form onReset={this.cancelRegister} onSubmit={this.submitForm}>
                         <div className="modal-body">
                             <div>
                                 <Label>Tipo:</Label>
