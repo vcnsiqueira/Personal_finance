@@ -6,10 +6,9 @@ import Table from './Components/Table/Table';
 import Search from './Components/Search/Search';
 import RegisterModal from './Components/Modal/RegisterModal/RegisterModal';
 import Button from './Components/Button/Button';
-import Barchart from './Components/Barchart/Barchart';
+import Barchart from './Components/Charts/Barchart/Barchart';
+import Piechart from './Components/Charts/Piechart/Piechart';
 
-
-const removeAccent = word => word.normalize('NFD').replace(/[\u0300-\u036f]/g, "");
 
 class App extends Component {
 
@@ -44,7 +43,7 @@ class App extends Component {
         },
         {
           id: 3,
-          tipo: 'Despesa',
+          tipo: 'Receita',
           categoria: 'Supermercado',
           data: '2020-06-05',
           valor: '250.00',
@@ -111,33 +110,6 @@ class App extends Component {
 
     const { list, searchTerm, showRegisterModal } = this.state
 
-    const uniqueList = () => { // Função para pegar apenas os elementos únicos das categorias da lista
-      const flatList = [...this.state.list.map(element => element.categoria)];
-      const uniqueCategories = flatList.filter((value, index) => {
-          return flatList.indexOf(value) === index
-      });
-      const orderedElements = uniqueCategories.sort((a,b) => {
-        if(removeAccent(a.toLowerCase()) < removeAccent(b.toLowerCase())) {
-          return -1;
-        }
-        if(removeAccent(a.toLowerCase()) > removeAccent(b.toLowerCase())) {
-          return 1;
-        }
-        return 0;
-      });
-      return orderedElements;
-    }
-  
-    const sumUnique = () => {
-        const values = [];
-        uniqueList().forEach((item) => {
-            values.push(this.state.list.filter(element => element.categoria === item)
-                .reduce((sum, element) => sum + parseFloat(element.valor), 0)
-            )
-        })
-        return values;
-    }
-
     return (
       <Fragment>
         <Title>Controle Financeiro</Title>
@@ -147,7 +119,10 @@ class App extends Component {
           <Search type="text" value={searchTerm} onChange={this.handleSearch}/>
         </div>
         <Table list = {list} searchTerm={searchTerm} editElement={this.editElement} onRemove={this.handleRemove}/>
-        <Barchart labels={uniqueList()} data={sumUnique()}/>        
+        <div>
+          <Piechart list={list}/>
+          <Barchart list={list}/>
+        </div>
       </Fragment>
     );
   }

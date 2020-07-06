@@ -43,6 +43,13 @@ class RegisterModal extends Component {
         event.preventDefault();
         this.props.addElement(this.state);
         this.props.handleClose();
+        this.setState({
+            tipo: '',
+            categoria: '',
+            data: '',
+            valor: '',
+            comentario: '',
+        })
     };
 
     cancelRegister = event => {
