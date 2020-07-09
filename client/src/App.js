@@ -8,7 +8,7 @@ import RegisterModal from './Components/Modal/RegisterModal/RegisterModal';
 import Button from './Components/Button/Button';
 import Barchart from './Components/Charts/Barchart/Barchart';
 import Piechart from './Components/Charts/Piechart/Piechart';
-
+import Tooltip from './Components/Tooltip/Tooltip';
 
 class App extends Component {
 
@@ -114,14 +114,16 @@ class App extends Component {
       <Fragment>
         <Title>Controle Financeiro</Title>
         <div className="app-header">
-          <Button variant="solid" backgroundColor="#4711B2" onClick={this.toggleRegisterModal}>+</Button>
+          <Tooltip title="Adicionar entrada" direction="top">
+            <Button variant="solid" backgroundColor="#4711B2" onClick={this.toggleRegisterModal}>+</Button>
+          </Tooltip>
           <RegisterModal show={showRegisterModal} handleClose={this.toggleRegisterModal} addElement={this.addElement}>Novo Cadastro</RegisterModal>
           <Search type="text" value={searchTerm} onChange={this.handleSearch}/>
         </div>
         <Table list = {list} searchTerm={searchTerm} editElement={this.editElement} onRemove={this.handleRemove}/>
-        <div>
-          <Piechart list={list}/>
-          <Barchart list={list}/>
+        <div className="dashboard">
+          <Piechart className="left-chart" list={list}/>
+          <Barchart className="right-chart" list={list}/>
         </div>
       </Fragment>
     );

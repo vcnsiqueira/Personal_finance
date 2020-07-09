@@ -5,6 +5,7 @@ import './Table.css';
 import Icon from '../Icon/Icon';
 import ConfirmModal from '../Modal/ConfirmModal/ConfirmModal';
 import EditModal from '../Modal/EditModal/EditModal';
+import Tooltip from '../Tooltip/Tooltip';
 
 const removeAccent = word => word.normalize('NFD').replace(/[\u0300-\u036f]/g, "");
 
@@ -139,9 +140,13 @@ class Table extends React.Component {
                                     <td>{item.valor}</td>
                                     <td>{item.comentario}</td>
                                     <td>
-                                        <Icon color='#4711B2' border hover onClick={() => this.openEditModal(item)}><i className="fas fa-pencil-alt"/></Icon>
+                                        <Tooltip title="Editar" direction="top">
+                                            <Icon color='#4711B2' border hover onClick={() => this.openEditModal(item)}><i className="fas fa-pencil-alt"/></Icon>
+                                        </Tooltip>
                                         <EditModal show={showEditModal === item} element={item} index={index} handleClose={this.closeEditModal} editElement={editElement}>Editar Cadastro</EditModal>
-                                        <Icon color='#4711B2' border hover onClick={() => this.openConfirmModal(item)}><i className="fas fa-trash-alt"/></Icon>
+                                        <Tooltip title="Apagar" direction="top">
+                                            <Icon color='#4711B2' border hover onClick={() => this.openConfirmModal(item)}><i className="fas fa-trash-alt"/></Icon>
+                                        </Tooltip>
                                         <ConfirmModal show={showConfirmModal === item} handleClose={this.closeConfirmModal} element={item} onRemove={onRemove}>Excluir</ConfirmModal>
                                     </td>
                                 </tr>

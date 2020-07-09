@@ -95,7 +95,7 @@ class Barchart extends Component {
           const values = [];
           this.uniqueList().forEach((item) => {
               values.push(this.props.list.filter(element => element.categoria === item && element.tipo === 'Despesa')
-                  .reduce((sum, element) => sum + parseFloat(element.valor), 0)
+                  .reduce((sum, element) => sum + parseFloat(element.valor).toFixed(2), 0)
               )
           })
           return values;

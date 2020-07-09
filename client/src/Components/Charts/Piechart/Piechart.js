@@ -30,6 +30,7 @@ class Piechart extends Component {
                 datasets: [{
                     label: ['Despesa', 'Receita'],
                     backgroundColor: ['#7ECFA2', '#F127F8'],
+                    borderColor: ['#7ECFA2', '#F127F8'],
                     data: this.sumUnique(),
                 }]
             },
