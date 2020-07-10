@@ -59,14 +59,27 @@ class RegisterModal extends Component {
             data: '',
             valor: '',
             comentario: '',
-        })
+        });
         this.props.handleClose();
     }
+
+    handleBackground = event => {
+        if (!event.target.closest('.modal-wrapper')) {
+            this.setState({
+                tipo: '',
+                categoria: '',
+                data: '',
+                valor: '',
+                comentario: '',
+            });
+            this.props.handleClose();
+        };
+    };
 
     render() {
     
         const { tipo, categoria, data, valor, comentario } = this.state;
-        const { show, children, handleClose } = this.props;
+        const { show, children } = this.props;
         const selectTypeOptions = [ 'Receita', 'Despesa' ];
         const showHideClassName = show ? "modal display-block" : "modal display-none"
 
@@ -77,14 +90,8 @@ class RegisterModal extends Component {
             };
         };*/
 
-        const handleBackground = event => {
-            if (!event.target.closest('.modal-wrapper')) {
-                handleClose();
-            };
-        };
-
         return(
-            <div className={showHideClassName} onClick={handleBackground}>
+            <div className={showHideClassName} onClick={this.handleBackground}>
                 <div className="modal-wrapper" >
                     <div className="modal-header">
                         <h3>{children}</h3>

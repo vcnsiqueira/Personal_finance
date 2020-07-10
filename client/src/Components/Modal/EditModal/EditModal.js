@@ -46,10 +46,10 @@ class EditModal extends Component {
     }
 
     submitForm = event => {
-        console.log(this.state.initialState);
+        //console.log(this.state.initialState);
         event.preventDefault();
-        console.log(this.state);
-        console.log(this.props.index);
+        //console.log(this.state);
+        //console.log(this.props.index);
         this.props.editElement(this.state, this.props.index);
         this.props.handleClose();
     };
@@ -131,7 +131,7 @@ EditModal.propTypes = {
     show: PropTypes.bool,
     children: PropTypes.node.isRequired,
     element: PropTypes.object,
-    chandleClose: PropTypes.func,
+    handleClose: PropTypes.func,
 }
 
 export default  EditModal;
