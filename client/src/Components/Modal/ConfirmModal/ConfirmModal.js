@@ -1,12 +1,13 @@
 import React from 'react';
-import '../Modal.css';
+//import '../Modal.css';
 import PropTypes from 'prop-types';
+import { Modal, ModalWrapper, ModalHeader, ModalBody, ModalFooter } from '../styled/Modal.styled';
 
 import Button from '../../Button/Button';
 
 const ConfirmModal = ({ show, handleClose, children, element, onRemove }) => {
     
-    const showHideClassName = show ? "modal display-block" : "modal display-none"
+    const showHideClassName = show ? "display-block" : "display-none"
     
     const removeElement = element => {
         onRemove(element.id);
@@ -20,20 +21,20 @@ const ConfirmModal = ({ show, handleClose, children, element, onRemove }) => {
     };
     
     return(
-        <div className={showHideClassName} onClick={handleBackground}>
-            <div className="modal-wrapper">
-                <div className="modal-header">
+        <Modal className={showHideClassName} onClick={handleBackground}>
+            <ModalWrapper className="modal-wrapper">
+                <ModalHeader>
                     <h3>{children}</h3>
-                </div>
-                <div className="modal-body">
+                </ModalHeader>
+                <ModalBody>
                     Tem certeza que deseja excluir?
-                </div>
-                <div className="modal-footer">
+                </ModalBody>
+                <ModalFooter>
                     <Button backgroundColor="#4711B2" onClick={handleClose}>Cancelar</Button>
                     <Button variant="solid" backgroundColor="#4711B2" onClick={() => removeElement(element)}>Sim</Button>
-                </div>
-            </div>
-        </div>
+                </ModalFooter>
+            </ModalWrapper>
+        </Modal>
     );
 }
 

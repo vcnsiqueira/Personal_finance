@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import { StyledTooltip, StyledContentTooltip } from './styled/Tooltip.styled';
 
-function Tooltip({ children, title, direction }) {
+const Tooltip = ({ children, title, direction }) => {
     
     const node = useRef();
     const [hover, setHover] = useState(false)

@@ -1,19 +1,17 @@
-import styled from 'styled-components';
+import React from 'react';
 import PropTypes from 'prop-types';
+import { StyledLabel } from './styled/Label.styled';
 
-const Label = styled.label`
-    display: inline-block;
-    color: #000;
-    font-weight: bold;
-    padding-right: 10px;
-    margin: 10px;
-    text-align: left;
-    width: 100px;
-    vertical-align: middle;
-`;
+const Label = ({ children }) => {
+    return(
+        <StyledLabel>
+            {children}
+        </StyledLabel>
+    );
+};
 
 Label.propTypes = {
     children: PropTypes.node.isRequired,
-}
+};
 
-export default Label
+export default Label;

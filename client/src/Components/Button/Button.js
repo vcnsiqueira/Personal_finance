@@ -5,7 +5,9 @@ import { StyledButton } from './styled/Button.styled';
 const Button = ({ variant, backgroundColor, children, onClick }) => {
     
     return(
-        <StyledButton backgroundColor={backgroundColor} variant={variant} onClick={onClick}>{children}</StyledButton>
+        <StyledButton backgroundColor={backgroundColor} variant={variant} onClick={onClick}>
+            {children}
+        </StyledButton>
     );
 };
 

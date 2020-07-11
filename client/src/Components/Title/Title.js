@@ -1,12 +1,14 @@
-import styled from 'styled-components';
+import React from 'react';
 import PropTypes from 'prop-types';
+import { StyledTitle } from './styled/Title.styled';
 
-const Title = styled.h1`
-    text-align: center;
-    color: #4711B2;
-    font-size: 3rem;
-    margin: 0;
-`
+const Title = ({ children }) => {
+    return(
+        <StyledTitle>
+            {children}
+        </StyledTitle>
+    );
+};
 
 Title.propTypes = {
     children: PropTypes.node.isRequired,

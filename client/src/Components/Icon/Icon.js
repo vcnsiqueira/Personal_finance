@@ -1,25 +1,12 @@
 import React from 'react';
-import styled from 'styled-components';
 import PropTypes from 'prop-types';
-
-const Div = styled.div`
-    display: inline-block;
-    color: ${props => props.color};
-    border: ${props => props.border ? 'solid' : 'none'} 1px ${props => props.color};
-    border-radius: 3px;
-    padding: 0.5rem;
-    margin: 0.2rem;
-    :hover {
-        color: ${props => props.hover ? props.color !== '#FFF' ? '#FFF' : '#AAA' : 'none'};
-        background-color: ${props => props.hover ? props.color : 'none'};
-    }
-`
+import { StyledIcon } from './styled/Icon.styled';
 
 const Icon = ({ children, color, border, hover, onClick}) => {
     return(
-        <Div color={color} border={border} hover={hover} onClick={onClick}>
+        <StyledIcon color={color} border={border} hover={hover} onClick={onClick}>
             {children}
-        </Div>
+        </StyledIcon>
     );
 }
 

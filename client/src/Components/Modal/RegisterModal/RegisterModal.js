@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import '../Modal.css'
+import { Modal, ModalWrapper, ModalHeader, ModalBody, ModalFooter } from '../styled/Modal.styled';
 
 import Button from '../../Button/Button';
 import Input from '../../Input/Input';
 import Label from '../../Label/Label';
 import Select from '../../Select/Select';
+
 
 class RegisterModal extends Component {
 
@@ -81,7 +82,7 @@ class RegisterModal extends Component {
         const { tipo, categoria, data, valor, comentario } = this.state;
         const { show, children } = this.props;
         const selectTypeOptions = [ 'Receita', 'Despesa' ];
-        const showHideClassName = show ? "modal display-block" : "modal display-none"
+        const showHideClassName = show ? "display-block" : "display-none"
 
         /*const handleEscape = event => {
             console.log(event.key);
@@ -91,13 +92,13 @@ class RegisterModal extends Component {
         };*/
 
         return(
-            <div className={showHideClassName} onClick={this.handleBackground}>
-                <div className="modal-wrapper" >
-                    <div className="modal-header">
+            <Modal className={showHideClassName} onClick={this.handleBackground}>
+                <ModalWrapper className="modal-wrapper" >
+                    <ModalHeader>
                         <h3>{children}</h3>
-                    </div>
+                    </ModalHeader>
                     <form onReset={this.cancelRegister} onSubmit={this.submitForm}>
-                        <div className="modal-body">
+                        <ModalBody>
                             <div>
                                 <Label>Tipo:</Label>
                                 <Select name="tipo" value={tipo} onChange={this.handleSelect} options={selectTypeOptions}/>
@@ -118,14 +119,14 @@ class RegisterModal extends Component {
                                 <Label>Comentário:</Label>
                                 <Input type="text" name="comentario" value={comentario} onChange={this.handleInput} placeholder="Opcional"/>
                             </div>
-                        </div>
-                        <div className="modal-footer">
+                        </ModalBody>
+                        <ModalFooter>
                             <Button backgroundColor="#4711B2" type="reset">Cancelar</Button>
                             <Button variant="solid" backgroundColor="#4711B2" type="submit">Cadastrar</Button>
-                        </div>
+                        </ModalFooter>
                     </form>
-                </div>
-            </div>
+                </ModalWrapper>
+            </Modal>
         );
     }
 
