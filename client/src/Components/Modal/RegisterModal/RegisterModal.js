@@ -54,6 +54,7 @@ class RegisterModal extends Component {
     };
 
     cancelRegister = event => {
+        event.preventDefault();
         this.setState({
             tipo: '',
             categoria: '',
@@ -97,7 +98,7 @@ class RegisterModal extends Component {
                     <ModalHeader>
                         <h3>{children}</h3>
                     </ModalHeader>
-                    <form onReset={this.cancelRegister} onSubmit={this.submitForm}>
+                    <form onSubmit={this.submitForm}>
                         <ModalBody>
                             <div>
                                 <Label>Tipo:</Label>
@@ -105,15 +106,15 @@ class RegisterModal extends Component {
                             </div>
                             <div>
                                 <Label>Categoria:</Label>
-                                <Input type="text" name="categoria" value={categoria} onChange={this.handleInput} placeholder="Digite a categoria" required/>
+                                <Input type="text" name="categoria" value={categoria} onChange={this.handleInput} placeholder="Digite a categoria"/>
                             </div>
                             <div>
                                 <Label>Data:</Label>
-                                <Input type="date" name="data" value={data} onChange={this.handleInput} placeholder="Escolha uma data" required/>
+                                <Input type="date" name="data" value={data} onChange={this.handleInput} placeholder="Escolha uma data"/>
                             </div>
                             <div>
                                 <Label>Valor:</Label>
-                                <Input type="number" name="valor" value={valor} onChange={this.handleInput} placeholder="Digite o valor" required/>
+                                <Input type="number" name="valor" value={valor} onChange={this.handleInput} placeholder="Digite o valor"/>
                             </div>
                             <div>
                                 <Label>Comentário:</Label>
@@ -121,7 +122,7 @@ class RegisterModal extends Component {
                             </div>
                         </ModalBody>
                         <ModalFooter>
-                            <Button backgroundColor="#4711B2" type="reset">Cancelar</Button>
+                            <Button backgroundColor="#4711B2" type="button" onClick={this.cancelRegister}>Cancelar</Button>
                             <Button variant="solid" backgroundColor="#4711B2" type="submit">Cadastrar</Button>
                         </ModalFooter>
                     </form>

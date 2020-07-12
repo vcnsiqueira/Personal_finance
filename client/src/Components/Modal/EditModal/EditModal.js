@@ -47,15 +47,13 @@ class EditModal extends Component {
     }
 
     submitForm = event => {
-        //console.log(this.state.initialState);
         event.preventDefault();
-        //console.log(this.state);
-        //console.log(this.props.index);
         this.props.editElement(this.state, this.props.index);
         this.props.handleClose();
     };
 
     cancelEdit = event => {
+        event.preventDefault();
         this.setState({
             id: this.state.initialState.id,
             tipo: this.state.initialState.tipo,
@@ -94,7 +92,7 @@ class EditModal extends Component {
                     <ModalHeader>
                         <h3>{children}</h3>
                     </ModalHeader>
-                    <form onReset={this.cancelEdit} onSubmit={this.submitForm}>
+                    <form onSubmit={this.submitForm}>
                         <ModalBody>
                             <div>
                                 <Label>Tipo:</Label>
@@ -102,15 +100,15 @@ class EditModal extends Component {
                             </div>
                             <div>
                                 <Label>Categoria:</Label>
-                                <Input type="text" name="categoria" value={categoria} onChange={this.handleInput} placeholder="Digite a categoria" required/>
+                                <Input type="text" name="categoria" value={categoria} onChange={this.handleInput} placeholder="Digite a categoria"/>
                             </div>
                             <div>
                                 <Label>Data:</Label>
-                                <Input type="date" name="data" value={data} onChange={this.handleInput} placeholder="Escolha uma data" required/>
+                                <Input type="date" name="data" value={data} onChange={this.handleInput} placeholder="Escolha uma data"/>
                             </div>
                             <div>
                                 <Label>Valor:</Label>
-                                <Input type="number" name="valor" value={valor} onChange={this.handleInput} placeholder="Digite o valor" required/>
+                                <Input type="number" name="valor" value={valor} onChange={this.handleInput} placeholder="Digite o valor"/>
                             </div>
                             <div>
                                 <Label>Comentário:</Label>
@@ -118,7 +116,7 @@ class EditModal extends Component {
                             </div>
                         </ModalBody>
                         <ModalFooter>
-                            <Button backgroundColor="#4711B2" type="reset">Cancelar</Button>
+                            <Button backgroundColor="#4711B2" type="button" onClick={this.cancelEdit}>Cancelar</Button>
                             <Button variant="solid" backgroundColor="#4711B2" type="submit">Salvar</Button>
                         </ModalFooter>
                     </form>

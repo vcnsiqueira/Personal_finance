@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import './Table.css';
+import { Table, TableHeader, TableBody, TableRow, TableHeaderCell, TableCell } from './styled/Table.styled';
 
 import Icon from '../Icon/Icon';
 import ConfirmModal from '../Modal/ConfirmModal/ConfirmModal';
@@ -9,7 +9,7 @@ import Tooltip from '../Tooltip/Tooltip';
 
 const removeAccent = word => word.normalize('NFD').replace(/[\u0300-\u036f]/g, "");
 
-class Table extends React.Component {
+class DataTable extends React.Component {
 
     constructor(props) {
         super(props);
@@ -31,6 +31,7 @@ class Table extends React.Component {
         this.closeEditModal = this.closeEditModal.bind(this);
         this.requestSort = this.requestSort.bind(this);
         this.sortList = this.sortList.bind(this);
+        this.selectIcon = this.selectIcon.bind(this);
     };
 
     openEditModal = item => {
@@ -115,56 +116,54 @@ class Table extends React.Component {
         const showList = sortConfig.key !== null ? this.sortList() : list; 
 
         return(
-            <div>
-                <table>
-                    <thead>
-                        <tr>
-                        {
-                            header.map((item, index) => {
-                                if(item !== 'Ações'){ 
-                                    return(<th key={index} onClick={() => this.requestSort(item)}>{item}<Icon color={this.selectIcon(item)[1]}><i className={`fas fa-${this.selectIcon(item)[0]}`}/></Icon></th>);
-                                }
-                                return(<th key={index}>{item}</th>);
-                            })
-                        }
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {
-                            showList.filter(item => removeAccent(item.categoria).toLowerCase().includes(removeAccent(searchTerm).toLowerCase())).map((item, index) => {
-                                return(
-                                <tr key={item.id}>
-                                    <td>{item.tipo}</td>
-                                    <td>{item.categoria}</td>
-                                    <td>{item.data}</td>
-                                    <td>{item.valor}</td>
-                                    <td>{item.comentario}</td>
-                                    <td>
-                                        <Tooltip title="Editar" direction="top">
-                                            <Icon color='#4711B2' border hover onClick={() => this.openEditModal(item)}><i className="fas fa-pencil-alt"/></Icon>
-                                        </Tooltip>
-                                        <EditModal show={showEditModal === item} element={item} index={index} handleClose={this.closeEditModal} editElement={editElement}>Editar Cadastro</EditModal>
-                                        <Tooltip title="Apagar" direction="top">
-                                            <Icon color='#4711B2' border hover onClick={() => this.openConfirmModal(item)}><i className="fas fa-trash-alt"/></Icon>
-                                        </Tooltip>
-                                        <ConfirmModal show={showConfirmModal === item} handleClose={this.closeConfirmModal} element={item} onRemove={onRemove}>Excluir</ConfirmModal>
-                                    </td>
-                                </tr>
-                                );
-                            })
-                        }
-                    </tbody>
-                </table>
-            </div>
+            <Table>
+                <TableHeader>
+                    <TableRow>
+                    {
+                        header.map((item, index) => {
+                            if(item !== 'Ações'){ 
+                                return(<TableHeaderCell key={index} onClick={() => this.requestSort(item)}>{item}<Icon color={this.selectIcon(item)[1]}><i className={`fas fa-${this.selectIcon(item)[0]}`}/></Icon></TableHeaderCell>);
+                            }
+                            return(<TableHeaderCell key={index}>{item}</TableHeaderCell>);
+                        })
+                    }
+                    </TableRow>
+                </TableHeader>
+                <TableBody>
+                    {
+                        showList.filter(item => removeAccent(item.categoria).toLowerCase().includes(removeAccent(searchTerm).toLowerCase())).map((item, index) => {
+                            return(
+                            <TableRow key={item.id}>
+                                <TableCell>{item.tipo}</TableCell>
+                                <TableCell>{item.categoria}</TableCell>
+                                <TableCell>{item.data}</TableCell>
+                                <TableCell>{item.valor}</TableCell>
+                                <TableCell>{item.comentario}</TableCell>
+                                <TableCell>
+                                    <Tooltip title="Editar" direction="top">
+                                        <Icon color='#4711B2' border hover onClick={() => this.openEditModal(item)}><i className="fas fa-pencil-alt"/></Icon>
+                                    </Tooltip>
+                                    <EditModal show={showEditModal === item} element={item} index={index} handleClose={this.closeEditModal} editElement={editElement}>Editar Cadastro</EditModal>
+                                    <Tooltip title="Apagar" direction="top">
+                                        <Icon color='#4711B2' border hover onClick={() => this.openConfirmModal(item)}><i className="fas fa-trash-alt"/></Icon>
+                                    </Tooltip>
+                                    <ConfirmModal show={showConfirmModal === item} handleClose={this.closeConfirmModal} element={item} onRemove={onRemove}>Excluir</ConfirmModal>
+                                </TableCell>
+                            </TableRow>
+                            );
+                        })
+                    }
+                </TableBody>
+            </Table>
         )
     };
 };
 
-Table.propTypes = {
+DataTable.propTypes = {
     header: PropTypes.array,
     list: PropTypes.array,
     searchTerm: PropTypes.string,
     onRemove: PropTypes.func,
 }
 
-export default Table;
+export default DataTable;

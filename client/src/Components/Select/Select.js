@@ -4,7 +4,7 @@ import { StyledSelect } from './styled/Select.styled';
 
 const Select = ({ value, options, onChange }) => {
     return(
-        <StyledSelect defaultValue={value} onChange={onChange} required>
+        <StyledSelect defaultValue={value} onChange={onChange}>
                 <option value={''} disabled>Escolha</option>
                 {options.map(option => {
                     return(
